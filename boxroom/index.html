@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="testApp">
+    <head>
+        <base href="..">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"></link>
+        <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="vendor/angular/angular.min.js"></script>
+        <script type="text/javascript" src="modules/nx-util/nx-util.js"></script>
+        <script type="text/javascript" src="modules/nx-util/scripts/services/nxLog.js"></script>
+        <script type="text/javascript" src="modules/nx-data/nx-data.js"></script>
+        <script type="text/javascript" src="modules/nx-data/scripts/services/nxDataSource.js"></script>
+        <script type="text/javascript" src="modules/nx-ui/nx-ui.js"></script>
+        <script type="text/javascript" src="modules/nx-ui/scripts/directives/pagination.js"></script>
+        <script type="text/javascript" src="modules/nx-ui/scripts/directives/button-group.js"></script>
+        <script type="text/javascript" src="modules/test-app/test-app.js"></script>
+        <style type="text/css">
+            .nx-pagination {
+                margin: 30px 20px;
+            }
+        </style>
+    </head>
+    <body ng-controller="MainCtrl">
+        <div>
+            <div>Item count/page: {{ds.getItemCountPerPage()}}</div>
+            <div>Total item count: {{ds.getTotalItemCount()}}</div>
+            <div>Total page count: {{ds.getTotalPageCount()}}</div>
+            <div>Current page: {{ds.getCurrentPageNo() + 1}}</div>
+
+            <nx-button-group config="buttonGroupConfig"></nx-button-group>
+
+                        <nx-pagination datasource="ds" type="pageInfo"></nx-pagination>
+            <nx-pagination datasource="ds" type="itemsInfo"></nx-pagination>
+
+            <div style="float: left; padding-right: 20px; margin-right: 20px; border-right: 1px dotted #ddd">
+                <nx-pagination datasource="ds"></nx-pagination>
+                <nx-pagination datasource="ds" type="pageSizeSelectBox"></nx-pagination>
+                <nx-pagination datasource="ds" type="pageSizeButtons"></nx-pagination>
+                <nx-pagination datasource="ds" type="pageSizeDropdown"></nx-pagination>
+                <nx-pagination datasource="ds" type="pageSizeDropup"></nx-pagination>
+                <nx-pagination datasource="ds" type="pageNavigator"></nx-pagination>
+            </div>
+            <div stle="float: right">
+                <nx-pagination datasource="ds" type="pager"></nx-pagination>
+                <nx-pagination datasource="ds" type="previousButton"></nx-pagination>
+                <nx-pagination datasource="ds" type="nextButton"></nx-pagination>
+                <nx-pagination datasource="ds" type="firstAndPreviousButton"></nx-pagination>
+                <nx-pagination datasource="ds" type="nextAndLastButton"></nx-pagination>
+            </div>
+            <div style ="clear: both" />
+
+            <div ng-repeat="item in ds.getCurrentItems()">
+                {{item}}
+            </div>
+            <script type="text/javascript">
+                        jQuery('.dropdown-toggle').dropdown();
+            </script>
+        </div>
+    </body>
+</html>

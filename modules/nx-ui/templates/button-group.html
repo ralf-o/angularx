@@ -1,0 +1,17 @@
+<div>
+    <div class="btn-group">
+        <div class="btn-group" ng-repeat="button in config.buttons">
+            <button
+                ng-attr-class="{{!button.menu|| !button.menu.length ? 'btn btn-default' : 'btn btn-default dropdown-toggle'}}"
+                ng-attr-data-toggle="{{!button.menu|| !button.menu.length ? null : 'dropdown'}}"
+                >
+                {{button.title}}
+                <span class="caret"  ng-if=button.menu && button.menu.length"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu" ng-if=button.menu && button.menu.length">
+                <li ng-repeat="item in button.menu"><a href="#">{{item.title}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

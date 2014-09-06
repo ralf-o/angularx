@@ -1,0 +1,147 @@
+<div>
+    <ul class="nx-pagination pagination" ng-if="type === 'paginator'">
+        <li>
+            <a ng-click="dataSource.movePrevious()" ng-disabled="!dataSource.hasPrevious()">&laquo; Previous</a>
+        </li>
+
+        <li ng-if="pageNos[0] == 0" class="{{dataSource.getPageNo() == 0 ? 'active' : ''}}">
+            <a ng-click="dataSource.moveFirst()"  ng-disabled="!dataSource.hasPrevious()">1</a>
+        </li>
+
+        <li ng-if="pageNos[0] === 0 && pageNos[1] !== 1 && pageNos.length > 2">
+            <a>...</a>
+        </li>
+
+        <li ng-repeat="page in pageNos" ng-if="page > 0 && page < dataSource.getTotalPageCount() - 1" class="{{page == dataSource.getPageNo() ? 'active' : ''}}">
+            <a ng-click="dataSource.moveToPage(page)" ng-disabled="!dataSource.hasNext()">{{page + 1}}</a>
+        </li>
+
+        <li ng-if="pageNos[pageNos.length - 1] === dataSource.getTotalPageCount() - 1 && pageNos[pageNos.length - 2] !== dataSource.getTotalPageCount() - 2 && pageNos.length > 2">
+            <a>...</a>
+        </li>
+
+        <li ng-if="pageNos[pageNos.length - 1] == dataSource.getTotalPageCount() - 1 && pageNos.length > 2" class="{{dataSource.getPageNo() === dataSource.getTotalPageCount() - 1 ? 'active' : ''}}">
+            <a ng-click="dataSource.moveLast()" ng-disabled="!dataSource.hasNext()">{{dataSource.getTotalPageCount()}}</a>
+        </li>        
+
+        <li>
+            <a ng-click="dataSource.moveNext()" ng-disabled="!dataSource.hasNext()">Next &raquo;</a>
+        </li>
+    </ul>
+    <div class="nx-pagination" ng-if="type === 'pageInfo'">
+        Page {{dataSource.getPageNo() + 1}} of {{dataSource.getTotalPageCount()}}  
+    </div>
+    <div ng-if="type === 'itemsInfo'">
+        Items {{dataSource.getPageNo() * dataSource.getPageSize() + 1}} to {{dataSource.getPageNo() * dataSource.getPageSize() + dataSource.getItemCount()}} of {{dataSource.getTotalItemCount()}}  
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pageSizeSelectBox'">
+        Page size{{pageSize}}
+        <select ng-model="selectedPageSize" ng-init="selectedPageSize = dataSource.getPageSize()" ng-change="dataSource.setPageSize(selectedPageSize)">
+            <option ng-repeat="pageSize in dataSource.getPageSizeOptions()" ng-selected="pageSize == dataSource.getPageSize()">
+                {{pageSize}}
+            </option>            
+        </select>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pageSizeButtons'">
+        Page size
+        <div class="btn-group btn-group-sm">
+            <button type="button"
+                    class="btn btn-default {{pageSize == dataSource.getPageSize() ? 'active' : ''}}"
+                    ng-repeat="pageSize in dataSource.getPageSizeOptions()"
+                    ng-click="dataSource.setPageSize(pageSize)"
+                    >
+                {{pageSize}}
+            </button>
+        </div>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pageSizeDropdown'">
+        Page size
+        <div class="btn-group btn-group-sm">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {{dataSource.getPageSize()}}&nbsp;&nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="size in dataSource.getPageSizeOptions()"><a href="#" ng-click="dataSource.setPageSize(size);
+                        jQuery(this).parent().find('button').html(size + '&nbsp;&nbsp;');" onclick="return false">{{size}}</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pageSizeDropup'">
+        Page size
+        <div class="btn-group btn-group-sm dropup">
+            <button type="button" class="btn btn-default dropup-toggle" data-toggle="dropdown">
+                {{dataSource.getPageSize()}}&nbsp;&nbsp;<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="size in dataSource.getPageSizeOptions()"><a href="#" ng-click="dataSource.setPageSize(size);
+                        jQuery(this).parent().find('button').html(size + '&nbsp;&nbsp;');" onclick="return false">{{size}}</a></li>
+            </ul>
+        </div>        
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pageNavigator'">
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveFirst()" ng-disabled="!dataSource.hasPrevious()">
+                <span class="glyphicon glyphicon-fast-backward"></span>
+            </a >
+            <a class="btn btn-default btn-sm" ng-click="dataSource.movePrevious()" ng-disabled="!dataSource.hasPrevious()">
+                <span class="glyphicon glyphicon-backward"></span>
+            </a>
+        </div>
+            <span style="margin: 0 8px">
+            Page
+            <input size="4" value="{{dataSource.getPageNo() + 1}}" ng-change="alert(1)" ng-model="xxxx">
+            of {{dataSource.getTotalPageCount()}}
+            </span>
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveNext()" ng-disabled="!dataSource.hasNext()">
+                <span class="glyphicon glyphicon-forward"></span>
+            </a>
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveLast()" ng-disabled="!dataSource.hasNext()">
+                <span class="glyphicon glyphicon-fast-forward"></span>
+            </a>
+        </div>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'pager'">
+        <a class="btn btn-default" ng-disabled="!dataSource.hasPrevious()" ng-click="dataSource.movePrevious()">
+           <span class="glyphicon glyphicon-chevron-left"></span>
+           Previous
+        </a>
+        Page {{dataSource.getPageNo() + 1}} of {{dataSource.getTotalPageCount()}}
+        <a class="btn btn-default" ng-disabled="!dataSource.hasNext()" ng-click="dataSource.moveNext()">
+           Next
+           <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'previousButton'">
+        <a class="btn btn-default" ng-disabled="!dataSource.hasPrevious()" ng-click="dataSource.movePrevious()">
+           <span class="glyphicon glyphicon-chevron-left"></span>
+           Previous
+        </a>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'nextButton'">
+        <a class="btn btn-default" ng-disabled="!dataSource.hasNext()" ng-click="dataSource.moveNext()">
+           Next
+           <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+    </div>
+    <div class="nx-pagination" ng-if="type === 'firstAndPreviousButton'">
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveFirst()" ng-disabled="!dataSource.hasPrevious()">
+                <span class="glyphicon glyphicon-fast-backward"></span>
+            </a >
+            <a class="btn btn-default btn-sm" ng-click="dataSource.movePrevious()" ng-disabled="!dataSource.hasPrevious()">
+                <span class="glyphicon glyphicon-backward"></span>
+            </a>
+        </div>        
+    </div>
+    <div class="nx-pagination" ng-if="type === 'nextAndLastButton'">
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveNext()" ng-disabled="!dataSource.hasNext()">
+                <span class="glyphicon glyphicon-forward"></span>
+            </a>
+            <a class="btn btn-default btn-sm" ng-click="dataSource.moveLast()" ng-disabled="!dataSource.hasNext()">
+                <span class="glyphicon glyphicon-fast-forward"></span>
+            </a>
+        </div>
+    </div>
+</div>

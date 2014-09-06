@@ -1,0 +1,9 @@
+(function () {
+    'use strict';
+
+    var angular = window.angular;
+
+    angular.module('nx.ui', ['nx.data']);
+}());
+
+
